@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Primer artículo",
+        "content": "Este es el contenido del primer artículo. Habla sobre la importancia de aprender programación.",
+        "color": "red",
+        "date": "2025-01-30T14:00:00Z"
+    },
+    {
+        "title": "Explorando el futuro de la inteligencia artificial",
+        "content": "En este artículo, discutimos cómo la inteligencia artificial está cambiando el mundo y lo que nos depara el futuro.",
+        "color": "blue",
+        "date": "2025-01-29T09:30:00Z"
+    },
+    {
+        "title": "Los beneficios del ejercicio diario",
+        "content": "El ejercicio diario tiene numerosos beneficios para la salud, desde mejorar la circulación hasta reducir el estrés.",
+        "color": "green",
+        "date": "2025-01-28T11:15:00Z"
+    },
+    {
+        "title": "Viaje a las montañas",
+        "content": "Una aventura de senderismo en las montañas, explorando nuevos paisajes y disfrutando de la naturaleza.",
+        "color": "purple",
+        "date": "2025-01-25T08:00:00Z"
+    },
+    {
+        "title": "Cómo organizar tu espacio de trabajo",
+        "content": "Un espacio de trabajo organizado puede mejorar tu productividad y bienestar. Aquí te damos algunos consejos para lograrlo.",
+        "color": "orange",
+        "date": "2025-01-22T10:45:00Z"
+    }
+]
