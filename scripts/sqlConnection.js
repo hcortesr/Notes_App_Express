@@ -39,6 +39,12 @@ async function closeSession(id_session) {
     return res[0].affectedRows;
 }
 
+async function getUserCards(id_session) {
+    const query = "SELECT * FROM cards WHERE id_user = (SELECT id_user FROM sessions WHERE id_session = ?)";
+    const res = await pool.query(query, [id_session]);
+    return res[0];
+}
+
 module.exports = {
     getUser,
     createUser,
@@ -46,4 +52,5 @@ module.exports = {
     createSession,
     closeSession,
     getSession,
+    getUserCards,
 }
