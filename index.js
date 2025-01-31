@@ -1,6 +1,6 @@
 const express = require('express');
 const fs = require('fs/promises');
-const { getUser, createUser, getPassword, createSession, closeSession } = require('./scripts/sqlConnection');
+const { getUser, createUser, getPassword, createSession, closeSession, getSession } = require('./scripts/sqlConnection');
 
 
 const app = express();
@@ -32,14 +32,34 @@ app.post('/signUp', async (req, res) => { // Function create user
 app.post('/signIn', async (req, res) => { // Function create user
     const { id_user, password } = req.body;
     const truePassword = await getPassword(id_user);
+    const session = await getSession(id_user);
 
-    console.log(truePassword);
-    if (truePassword == undefined || truePassword != password) {
-        res.status(404).send("Hay un error con el usuario o la contraseña");
+    let isSession;
+    let isSameUser;
+    if (session == undefined) { isSession = false }
+    else { isSession = true }
+
+    if (truePassword == undefined) { isSameUser = false }
+    else if (truePassword.password == password) { isSameUser = true }
+    else { isSameUser = false }
+
+    if (!isSession) {
+        if (isSameUser) {
+            await createSession(id_user);
+            res.cookie("id_session", "", {
+                httpOnly: true,
+                maxAge: 500,
+            })
+            await getSession(id_user);
+            res.status(200).send("Se inició sesión correctamente");
+        } else {
+            res.status(404).send("Hay un error con el usuario o la contraseña");
+        }
     } else {
-        createSession(id_user);
-        res.status(200).send("Se inició sesión correctamente");
+        res.status(404).send("Ya se ha iniciado sesión");
     }
+
+
 
 })
 app.delete('/signOut', async (req, res) => { // Function to close the session

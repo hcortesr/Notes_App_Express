@@ -16,7 +16,7 @@ async function getUser(id_user) {
 async function getPassword(id_user) {
     const query = "SELECT password FROM users WHERE id_user=?";
     const res = await pool.query(query, [id_user]);
-    return res[0][0].password;
+    return res[0][0];
 }
 async function createUser(id_user, password) {
     const query = "INSERT INTO users (id_user, password) VALUES (?,?)";
@@ -26,7 +26,11 @@ async function createUser(id_user, password) {
 async function createSession(id_user) {
     const query = "INSERT INTO sessions (id_user) VALUES (?)";
     const res = await pool.query(query, [id_user])
-    console.log(res[0][0]);
+}
+async function getSession(id_user) {
+    const query = "SELECT id_session FROM sessions WHERE id_user=?";
+    const res = await pool.query(query, [id_user])
+    return res[0][0];
 }
 
 async function closeSession(id_session) {
@@ -40,5 +44,6 @@ module.exports = {
     createUser,
     getPassword,
     createSession,
-    closeSession
+    closeSession,
+    getSession,
 }
