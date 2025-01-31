@@ -3,13 +3,12 @@ const fs = require('fs/promises');
 
 const app = express();
 
-app.get('/allCards', (req, res) => {
-    fs.readFile('./data.json', 'utf8')
-        .then(txt => {
-            // txt = JSON.parse(txt);
-            res.json(txt);
-        })
-})
+app.use(express.static('./res'));
 
+app.get('/card', (req, res) => {
+    res.sendFile('./res/index.html', {
+        root: __dirname,
+    });
+})
 app.listen(3000);
 console.log("http://localhost:3000");
