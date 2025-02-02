@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs/promises');
 const { getUser, createUser, getPassword, createSession, closeSession, getSession, getUserCards } = require('./scripts/sqlConnection');
 const cookieParse = require('cookie-parser');
+const { send } = require('process');
 
 const app = express();
 
@@ -9,7 +10,7 @@ app.use(express.static('./res'));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParse());
 
-app.get('/cards', (req, res) => {
+app.get('/cards', (req, res) => { // ----------------------------------- Este método se va a eliminar, solo es para hacer pruebas
     res.cookie('usuario', 'Juan', { maxAge: 900000, httpOnly: true });
     res.sendFile('./res/index.html', {
         root: __dirname,
@@ -82,11 +83,13 @@ app.delete('/signOut', async (req, res) => { // Function to close the session
     }
 });
 
-app.all('/createCard', (req, res) => {
+app.get('/home', async (req, res) => {
 
     const { id_session } = req.cookies;
-    const cards = getUserCards(id_session);
-    send("se creó la tarjeta");
+    const cards = await getUserCards(id_session);
+    console.log(cards);
+    res.json(cards);
+
 })
 
 app.listen(3000);

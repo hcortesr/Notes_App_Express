@@ -39,7 +39,7 @@ async function closeSession(id_session) {
     return res[0].affectedRows;
 }
 
-async function getUserCards(id_session) {
+async function getUserCards(id_session) { // TODO: Ajustar el tipo de formato correcto
     const query = "SELECT * FROM cards WHERE id_user = (SELECT id_user FROM sessions WHERE id_session = ?)";
     const res = await pool.query(query, [id_session]);
     return res[0];
