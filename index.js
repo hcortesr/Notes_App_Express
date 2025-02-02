@@ -1,6 +1,6 @@
 const express = require('express');
 const fs = require('fs/promises');
-const { getUser, createUser, getPassword, createSession, closeSession, getSession, getUserCards, postUserCards, deleteAllCards } = require('./scripts/sqlConnection');
+const { getUser, createUser, getPassword, createSession, closeSession, getSession, getUserCards, postUserCards, deleteAllCards, editCard } = require('./scripts/sqlConnection');
 const cookieParse = require('cookie-parser');
 
 const app = express();
@@ -66,7 +66,7 @@ app.post('/signIn', async (req, res) => { // Function create user
     }
 
 })
-app.delete('/signOut', async (req, res) => { // Function to close the session
+app.delete('/signOut', async (req, res) => { // Function to close the session.
     // const { id_session } = req.body;
     const id_session = 0;
     const isClosed = await closeSession(id_session);
@@ -91,7 +91,7 @@ app.get('/home', async (req, res) => {
 
 })
 
-app.post('/home/createCard', async (req, res) => {
+app.post('/home/createCard', async (req, res) => { // TOOD: Cuando se crea una carta, se debe actualizar la pantalla del usuario.
 
     const { id_session } = req.cookies;
     const { title, content, color } = req.body
@@ -106,6 +106,15 @@ app.delete('/home/deleteAll', async (req, res) => {
     const { id_session } = req.cookies;
     await deleteAllCards(id_session);
     res.status(200).send("Se borró todo correctamente");
+
+})
+
+app.put('/home/editCard', async (req, res) => {
+
+    const { id_session } = req.cookies;
+    const { title, content, color, id_card } = req.body;
+    await editCard(title, content, color, id_session, id_card);
+    res.status(200).send("Se editó la carta correctamente");
 
 })
 

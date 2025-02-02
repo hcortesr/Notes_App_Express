@@ -57,7 +57,13 @@ async function deleteAllCards(id_session) { // TODO: Ajustar el tipo de formato 
     const query = `DELETE FROM cards WHERE
                     id_user = (SELECT id_user FROM sessions WHERE id_session=?)
     `;
-    const res = await pool.query(query, [id_session]);
+    await pool.query(query, [id_session]);
+}
+
+async function editCard(title, content, color, id_session, id_card) { // TODO: Ajustar el tipo de formato correcto
+    const query = `UPDATE cards SET title=?, content=?, color=?
+                    WHERE id_user = (SELECT id_user FROM sessions WHERE id_session=?) AND id_card=?`;
+    await pool.query(query, [title, content, color, id_session, id_card]);
 }
 
 
@@ -72,4 +78,5 @@ module.exports = {
     getUserCards,
     postUserCards,
     deleteAllCards,
+    editCard,
 }
