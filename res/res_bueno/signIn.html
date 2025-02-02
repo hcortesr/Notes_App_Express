@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App: Sign In</title>
+
+    <link rel="stylesheet" href="styleSignIn.css">
+
+
+</head>
+
+<body>
+    <h1>Notes App: Sign In</h1>
+
+    <form action="/logInPage/" method="post" id="login_container">
+        <label class="login_margin" for="username">Username:</label>
+        <input class="login_margin" type="text" name="id_user" id="username">
+        <label class="login_margin" for="password">Password:</label>
+        <input class="login_margin" type="text" name="password" id="password">
+
+        <div id="btn_container">
+            <input type="submit" name="action_type" value="Sign Up">
+            <input type="submit" name="action_type" value="Sign In">
+
+        </div>
+    </form>
+
+    <script src="./scriptSignIn.js"></script>
+
+</body>
+
+</html>

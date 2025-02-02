@@ -7,19 +7,20 @@ const morgan = require('morgan');
 const app = express();
 
 app.use(express.static('./res'));
+app.use(express.static('./res/res_bueno'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParse());
 app.use(morgan('dev'));
 
-app.get('/cards', (req, res) => { // ----------------------------------- Este método se va a eliminar, solo es para hacer pruebas
-    res.cookie('usuario', 'Juan', { maxAge: 900000, httpOnly: true });
-    res.sendFile('./res/index.html', {
+app.get('/logInPage', (req, res) => {
+    res.sendFile('./res/res_bueno/signIn.html', {
         root: __dirname,
-    });
+    })
 })
 
-app.post('/signUp', async (req, res) => { // Function create user
+
+app.post('/logInPage/signUp', async (req, res) => { // Function create user
     const { id_user, password } = req.body;
     const isUser = await getUser(id_user);
 
@@ -31,13 +32,15 @@ app.post('/signUp', async (req, res) => { // Function create user
         const id_session = await getSession(id_user);
         res.cookie('id_session', id_session.id_session, {
             httpOnly: true,
-            maxAge: 500,
+            maxAge: 1000 * 60 * 60,
+            secure: false,
         });
-        res.status(200).send("Usuario creado")
+        // res.status(200).send("Usuario creado");
+        res.json({ redirectTo: '/home' });
     }
 
 })
-app.post('/signIn', async (req, res) => { // Function create user
+app.post('/logInPage/signIn', async (req, res) => { // Function create user
     const { id_user, password } = req.body;
     const truePassword = await getPassword(id_user);
     const session = await getSession(id_user);
@@ -58,7 +61,7 @@ app.post('/signIn', async (req, res) => { // Function create user
             const id_session = await getSession(id_user);
             res.cookie("id_session", id_session.id_session, {
                 httpOnly: true,
-                maxAge: 500,
+                maxAge: 1000 * 60 * 60,
             })
             res.status(200).send("Se inició sesión correctamente");
         } else {
@@ -69,13 +72,13 @@ app.post('/signIn', async (req, res) => { // Function create user
     }
 
 })
-app.delete('/signOut', async (req, res) => { // Function to close the session.
+app.delete('/logInPage/signOut', async (req, res) => { // Function to close the session.
     // const { id_session } = req.body;
     const id_session = 0;
     const isClosed = await closeSession(id_session);
     res.cookie("id_session", "", {
         httpOnly: true,
-        maxAge: 500,
+        maxAge: 1000 * 60 * 60,
     })
 
     if (isClosed) {
@@ -89,9 +92,7 @@ app.get('/home', async (req, res) => {
 
     const { id_session } = req.cookies;
     const cards = await getUserCards(id_session);
-    console.log(cards);
-    // res.status(200).json(cards);
-    res.sendFile('./res/index.html', {
+    res.sendFile('./res/res_bueno/index.html', {
         root: __dirname,
     })
 
