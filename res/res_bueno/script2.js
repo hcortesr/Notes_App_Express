@@ -18,6 +18,7 @@ const bigScreen = document.getElementById('big-screen');
 const cardsContainer = document.getElementById('cards-container');
 const inputTitle = document.getElementById('newcard-title');
 const inputContent = document.getElementById('newcard-content');
+const logOut = document.getElementById('log_out');
 
 
 

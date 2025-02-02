@@ -45,6 +45,10 @@ editNoteWindow.addEventListener('submit', (event) => {
     editCardFun();
 })
 
+logOut.addEventListener('click', () => {
+    logOutFun();
+})
+
 btnDltAction.addEventListener('click', () => {
     deleteAllFun();
 
@@ -216,5 +220,11 @@ function deleteOneCardFun() {
     })
 }
 
+function logOutFun() {
+
+    fetch('/logInPage/signOut', {
+        method: 'delete'
+    })
+}
 
 showCards();

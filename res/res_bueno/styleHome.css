@@ -70,12 +70,21 @@ hr {
     background-color: orangered;
 }
 
+#log_out {
+    background-color: black;
+}
+
 #create_new {
     background-color: rgb(95, 234, 95);
 }
 
 #delete_all::after {
     content: "Delete All";
+    background-color: inherit;
+}
+
+#log_out::after {
+    content: "Log Out";
     background-color: inherit;
 }
 

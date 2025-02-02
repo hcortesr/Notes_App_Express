@@ -75,7 +75,7 @@ app.post('/logInPage/signIn', async (req, res) => { // Function create user
 })
 app.delete('/logInPage/signOut', async (req, res) => { // Function to close the session.
     // const { id_session } = req.body;
-    const id_session = 0;
+    const { id_session } = req.cookies;
     const isClosed = await closeSession(id_session);
     res.cookie("id_session", "", {
         httpOnly: true,
