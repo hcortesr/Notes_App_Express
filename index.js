@@ -92,12 +92,12 @@ app.delete('/logInPage/signOut', async (req, res) => { // Function to close the 
 app.get('/home', async (req, res) => {
 
     const { id_session } = req.cookies;
-    const cards = await getUserCards(id_session);
     res.sendFile('./res/res_bueno/index.html', {
         root: __dirname,
     })
 
 })
+
 
 app.get('/home/getCards', async (req, res) => {
 
@@ -114,7 +114,8 @@ app.post('/home/createCard', async (req, res) => { // TOOD: Cuando se crea una c
     console.log("id_session", id_session);
     console.log(req.cookies);
     await postUserCards(title, content, color, id_session);
-    res.status(200).send("Se creó la carta correctamente");
+    // res.status(200).send("Se creó la carta correctamente");
+    res.redirect(301, '/home');
 
 })
 
@@ -122,7 +123,8 @@ app.delete('/home/deleteAll', async (req, res) => {
 
     const { id_session } = req.cookies;
     await deleteAllCards(id_session);
-    res.status(200).send("Se borró todo correctamente");
+    // res.status(200).send("Se borró todo correctamente");
+    res.redirect(301, '/home');
 
 })
 
@@ -131,7 +133,8 @@ app.delete('/home/deleteCard', async (req, res) => {
     const { id_session } = req.cookies;
     const { id_card } = req.body;
     await deleteCard(id_session, id_card);
-    res.status(200).send("Se borró la carta exitosamente");
+    // res.status(200).send("Se borró la carta exitosamente");
+    res.redirect(301, '/home');
 
 })
 

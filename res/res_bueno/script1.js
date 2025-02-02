@@ -12,7 +12,7 @@ const editNoteWindow = document.getElementById('edit-card-screen-container');
 const editNoteClose = document.getElementById('editcard-close');
 const editTitle = document.getElementById('editcard-title');
 const editContent = document.getElementById('editcard-content');
-const editColor = document.getElementById('editcard-content');
+const editColor = document.getElementById('editcard-color');
 const editBtn = document.getElementById('editcard-btn');
 
 
@@ -39,10 +39,13 @@ optBlueEdit.addEventListener('click', () => chooseColor('blue'));
 optGreenEdit.addEventListener('click', () => chooseColor('green'));
 optYellEdit.addEventListener('click', () => chooseColor('yellow'));
 
+editNoteWindow.addEventListener('submit', (event) => {
+    event.preventDefault();
+    editCardFun();
+})
+
 btnDltAction.addEventListener('click', () => {
-    arrayNotes = [];
-    renderNotes();
-    deleteAllWindow.style.visibility = 'hidden';
+    deleteAllFun();
 
 })
 bigCardClose.addEventListener('click', () => bigScreen.style.visibility = 'hidden');
@@ -124,7 +127,7 @@ function createNoteAction() {
     // inputTitle.value = "";
     arrayNotes.push(note);
 
-    renderNotes();
+    showCards();
     closeCreateNewNote();
 
 }
@@ -156,6 +159,47 @@ function renderNotes() {
     saveCardsLocally();
 }
 
-renderNotes();
+// ------------------------------------------ Funciones fetch()
+function showCards() {
+    fetch('/home/getCards', {
+        method: 'get',
+    })
+        .then(res => res.json())
+        .then(data => {
+            arrayNotes = data;
+            renderNotes();
+        });
 
-fetch('./')
+}
+function deleteAllFun() {
+    fetch('/home/deleteAll', {
+        method: 'delete',
+    }).then(res => {
+        showCards()
+        deleteAllWindow.style.visibility = 'hidden'
+
+    });
+}
+
+function editCardFun() {
+    fetch('/home/editCard', {
+        method: 'put',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            title: editTitle.value,
+            content: editContent.value,
+            color: editColor.value,
+            id_card: arrayNotes[currentIndex]['id_card'],
+        })
+    }).then(res => {
+        showCards();
+
+    }).then(() => {
+        editNoteWindow.style.visibility = 'hidden';
+    })
+}
+
+
+showCards();
