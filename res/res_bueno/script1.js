@@ -148,7 +148,7 @@ function renderNotes() {
             <div class="card-option">
                 <i onclick="${textAux}" class='bx bxs-info-circle bx-md card-option-white'></i>
                 <i onclick="openEditWindow(${index})" class='bx bxs-edit-alt bx-md card-option-white'></i>
-                <i onclick="deleteNote(${index})" class='bx bxs-trash bx-md card-option-white'></i>
+                <i onclick="deleteOneCardFun(${index})" class='bx bxs-trash bx-md card-option-white'></i>
             </div>
         </div>`;
 
@@ -198,6 +198,21 @@ function editCardFun() {
 
     }).then(() => {
         editNoteWindow.style.visibility = 'hidden';
+    })
+}
+
+function deleteOneCardFun() {
+    fetch('/home/deleteCard', {
+        method: 'delete',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id_card: arrayNotes[currentIndex]['id_card'],
+        })
+    }).then(res => {
+        showCards();
+
     })
 }
 

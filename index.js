@@ -132,6 +132,7 @@ app.delete('/home/deleteCard', async (req, res) => {
 
     const { id_session } = req.cookies;
     const { id_card } = req.body;
+
     await deleteCard(id_session, id_card);
     // res.status(200).send("Se borró la carta exitosamente");
     res.redirect(301, '/home');
