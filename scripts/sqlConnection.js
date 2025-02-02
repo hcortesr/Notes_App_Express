@@ -48,7 +48,6 @@ async function getUserCards(id_session) { // TODO: Ajustar el tipo de formato co
 async function postUserCards(title, content, color, id_session) { // TODO: Ajustar el tipo de formato correcto
     const query = `INSERT INTO cards (title, content, color, id_user)
                     SELECT ?, ?, ?, id_user FROM sessions WHERE id_session=?;`;
-    console.log(query);
 
     const res = await pool.query(query, [title, content, color, id_session]);
 }
@@ -66,6 +65,13 @@ async function editCard(title, content, color, id_session, id_card) { // TODO: A
     await pool.query(query, [title, content, color, id_session, id_card]);
 }
 
+async function deleteCard(id_session, id_card) { // TODO: Ajustar el tipo de formato correcto
+    const query = `DELETE FROM cards WHERE
+        id_user = (SELECT id_user FROM sessions WHERE id_session=?) AND id_card=?
+    `;
+    await pool.query(query, [id_session, id_card]);
+}
+
 
 
 module.exports = {
@@ -79,4 +85,5 @@ module.exports = {
     postUserCards,
     deleteAllCards,
     editCard,
+    deleteCard
 }

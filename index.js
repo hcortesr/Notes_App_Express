@@ -1,13 +1,16 @@
 const express = require('express');
 const fs = require('fs/promises');
-const { getUser, createUser, getPassword, createSession, closeSession, getSession, getUserCards, postUserCards, deleteAllCards, editCard } = require('./scripts/sqlConnection');
+const { getUser, createUser, getPassword, createSession, closeSession, getSession, getUserCards, postUserCards, deleteAllCards, editCard, deleteCard } = require('./scripts/sqlConnection');
 const cookieParse = require('cookie-parser');
+const morgan = require('morgan');
 
 const app = express();
 
 app.use(express.static('./res'));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(cookieParse());
+app.use(morgan('dev'));
 
 app.get('/cards', (req, res) => { // ----------------------------------- Este método se va a eliminar, solo es para hacer pruebas
     res.cookie('usuario', 'Juan', { maxAge: 900000, httpOnly: true });
@@ -87,7 +90,10 @@ app.get('/home', async (req, res) => {
     const { id_session } = req.cookies;
     const cards = await getUserCards(id_session);
     console.log(cards);
-    res.status(200).json(cards);
+    // res.status(200).json(cards);
+    res.sendFile('./res/index.html', {
+        root: __dirname,
+    })
 
 })
 
@@ -95,7 +101,8 @@ app.post('/home/createCard', async (req, res) => { // TOOD: Cuando se crea una c
 
     const { id_session } = req.cookies;
     const { title, content, color } = req.body
-    console.log(req.body);
+    console.log("id_session", id_session);
+    console.log(req.cookies);
     await postUserCards(title, content, color, id_session);
     res.status(200).send("Se creó la carta correctamente");
 
@@ -109,9 +116,21 @@ app.delete('/home/deleteAll', async (req, res) => {
 
 })
 
+app.delete('/home/deleteCard', async (req, res) => {
+
+    const { id_session } = req.cookies;
+    const { id_card } = req.body;
+    await deleteCard(id_session, id_card);
+    res.status(200).send("Se borró la carta exitosamente");
+
+})
+
 app.put('/home/editCard', async (req, res) => {
 
     const { id_session } = req.cookies;
+
+    console.log(id_session);
+    console.log(req.body);
     const { title, content, color, id_card } = req.body;
     await editCard(title, content, color, id_session, id_card);
     res.status(200).send("Se editó la carta correctamente");
