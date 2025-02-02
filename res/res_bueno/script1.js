@@ -63,9 +63,9 @@ editBtn.addEventListener('click', () => {
     renderNotes();
     closeEditWindow();
 })
-function getDateFormated() {
-    const date = new Date();
-    const dateText = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+function getDateFormated(date) {
+    const dateF = new Date(date);
+    const dateText = `${dateF.getFullYear()}-${dateF.getMonth() + 1}-${dateF.getDate()}`;
 
     return dateText
 }
@@ -100,12 +100,12 @@ function closeEditWindow() {
     editNoteWindow.style.visibility = 'hidden';
 }
 
-function openBigScreen(title, text, date) {
+function openBigScreen(title, text, date, color) {
     bigScreen.style.visibility = 'visible';
     bigCardTitle.textContent = title;
     bigCardText.textContent = text;
     bigCardDate.textContent = date;
-    bigCard.style.backgroundColor = setColor;
+    bigCard.style.backgroundColor = color;
 }
 function closeBigScreen() {
     bigScreen.style.visibility = 'hidden';
@@ -142,13 +142,13 @@ function renderNotes() {
 
     let newMainContent = "";
     arrayNotes.forEach((element, index) => {
-        let textAux = `openBigScreen('${element.title}', '${element.content}', '${element.date}')`;
+        let textAux = `openBigScreen('${element.title}', '${element.content}', '${getDateFormated(element.date)}', '${element.color}')`;
 
         const noteText = `
         <div class="card" style="background-color: ${element.color}">
             <h2>${element.title}</h2>
             <p class="card-text">${element.content}</p>
-            <p class="card-date">${getDateFormated()}</p>
+            <p class="card-date">${getDateFormated(element.date)}</p>
             <div class="card-option">
                 <i onclick="${textAux}" class='bx bxs-info-circle bx-md card-option-white'></i>
                 <i onclick="openEditWindow(${index})" class='bx bxs-edit-alt bx-md card-option-white'></i>
@@ -225,6 +225,10 @@ function logOutFun() {
     fetch('/logInPage/signOut', {
         method: 'delete'
     })
+        .then(res => res.json())
+        .then(data => {
+            window.location.href = data.redirectTo;
+        })
 }
 
 showCards();

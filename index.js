@@ -83,9 +83,12 @@ app.delete('/logInPage/signOut', async (req, res) => { // Function to close the 
     })
 
     if (isClosed) {
-        res.status(200).send("La sesión se cerro correctamente");
+        // res.status(200).send("La sesión se cerro correctamente");
+        res.json({
+            redirectTo: '/logInPage'
+        })
     } else {
-        res.status(500).send("Hubo un error al cerra sesión");
+        // res.status(500).send("Hubo un error al cerra sesión");
     }
 });
 
@@ -103,6 +106,7 @@ app.get('/home/getCards', async (req, res) => {
 
     const { id_session } = req.cookies;
     const cards = await getUserCards(id_session);
+    console.log(cards);
     res.json(cards);
 
 })
