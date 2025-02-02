@@ -1,6 +1,6 @@
 const express = require('express');
 const fs = require('fs/promises');
-const { getUser, createUser, getPassword, createSession, closeSession, getSession, getUserCards, postUserCards } = require('./scripts/sqlConnection');
+const { getUser, createUser, getPassword, createSession, closeSession, getSession, getUserCards, postUserCards, deleteAllCards } = require('./scripts/sqlConnection');
 const cookieParse = require('cookie-parser');
 
 const app = express();
@@ -98,6 +98,14 @@ app.post('/home/createCard', async (req, res) => {
     console.log(req.body);
     await postUserCards(title, content, color, id_session);
     res.status(200).send("Se creó la carta correctamente");
+
+})
+
+app.delete('/home/deleteAll', async (req, res) => {
+
+    const { id_session } = req.cookies;
+    await deleteAllCards(id_session);
+    res.status(200).send("Se borró todo correctamente");
 
 })
 

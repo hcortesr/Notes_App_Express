@@ -53,6 +53,13 @@ async function postUserCards(title, content, color, id_session) { // TODO: Ajust
     const res = await pool.query(query, [title, content, color, id_session]);
 }
 
+async function deleteAllCards(id_session) { // TODO: Ajustar el tipo de formato correcto
+    const query = `DELETE FROM cards WHERE
+                    id_user = (SELECT id_user FROM sessions WHERE id_session=?)
+    `;
+    const res = await pool.query(query, [id_session]);
+}
+
 
 
 module.exports = {
@@ -63,5 +70,6 @@ module.exports = {
     closeSession,
     getSession,
     getUserCards,
-    postUserCards
+    postUserCards,
+    deleteAllCards,
 }
