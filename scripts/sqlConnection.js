@@ -45,6 +45,16 @@ async function getUserCards(id_session) { // TODO: Ajustar el tipo de formato co
     return res[0];
 }
 
+async function postUserCards(title, content, color, id_session) { // TODO: Ajustar el tipo de formato correcto
+    const query = `INSERT INTO cards (title, content, color, id_user)
+                    SELECT ?, ?, ?, id_user FROM sessions WHERE id_session=?;`;
+    console.log(query);
+
+    const res = await pool.query(query, [title, content, color, id_session]);
+}
+
+
+
 module.exports = {
     getUser,
     createUser,
@@ -53,4 +63,5 @@ module.exports = {
     closeSession,
     getSession,
     getUserCards,
+    postUserCards
 }

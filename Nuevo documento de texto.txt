@@ -1,0 +1,5 @@
+- Enviar datos en formato correcto en "getUserCards"
+- Editar cartas.
+- Borrar carta.
+- Borrar todas las cartas.
+-> Crear cartas.
