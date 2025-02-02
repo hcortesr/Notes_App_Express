@@ -9,6 +9,7 @@ const bigCardClose = document.getElementById('big-card-close');
 
 // Edit Window
 const editNoteWindow = document.getElementById('edit-card-screen-container');
+const editNoteForm = document.getElementById('edit-card-screen');
 const editNoteClose = document.getElementById('editcard-close');
 const editTitle = document.getElementById('editcard-title');
 const editContent = document.getElementById('editcard-content');
@@ -182,15 +183,14 @@ function deleteAllFun() {
 }
 
 function editCardFun() {
+    console.log("editCard")
     fetch('/home/editCard', {
         method: 'put',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            title: editTitle.value,
-            content: editContent.value,
-            color: editColor.value,
+            ...Object.fromEntries(new FormData(editNoteForm).entries()),
             id_card: arrayNotes[currentIndex]['id_card'],
         })
     }).then(res => {
