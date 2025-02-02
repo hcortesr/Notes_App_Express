@@ -47,6 +47,21 @@ form.addEventListener('submit', async (event) => {
             },
             body: JSON.stringify(formDataJSON),
         })
+            .then(res => res.text())
+            .then(data => {
+
+
+                if (data == "Hay un error con el usuario o la contraseña" || data == "Ya se ha iniciado sesión") {
+                    newAlert.textContent = data;
+                    insertText(newAlert);
+
+                } else {
+                    console.log(data);
+                    const rute = JSON.parse(data).redirectTo;
+                    window.location.href = rute;  // Redirige a la URL especificada en la respuesta
+                }
+
+            });
 
     }
 

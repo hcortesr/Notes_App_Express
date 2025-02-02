@@ -157,3 +157,5 @@ function renderNotes() {
 }
 
 renderNotes();
+
+fetch('./')

@@ -63,7 +63,8 @@ app.post('/logInPage/signIn', async (req, res) => { // Function create user
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60,
             })
-            res.status(200).send("Se inició sesión correctamente");
+            // res.status(200).send("Se inició sesión correctamente");
+            res.json({ redirectTo: '/home' });
         } else {
             res.status(404).send("Hay un error con el usuario o la contraseña");
         }
@@ -95,6 +96,14 @@ app.get('/home', async (req, res) => {
     res.sendFile('./res/res_bueno/index.html', {
         root: __dirname,
     })
+
+})
+
+app.get('/home/getCards', async (req, res) => {
+
+    const { id_session } = req.cookies;
+    const cards = await getUserCards(id_session);
+    res.json(cards);
 
 })
 
