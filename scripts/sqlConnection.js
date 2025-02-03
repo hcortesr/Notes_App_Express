@@ -21,7 +21,6 @@ async function getPassword(id_user) {
 async function createUser(id_user, password) {
     const query = "INSERT INTO users (id_user, password) VALUES (?,?)";
     const res = await pool.query(query, [id_user, password]);
-    console.log(res[0][0]);
 }
 async function createSession(id_user) {
     const query = "INSERT INTO sessions (id_user) VALUES (?)";

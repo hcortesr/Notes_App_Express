@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(cookieParse());
 app.use(morgan('dev'));
 
+
 app.get('/logInPage', (req, res) => {
     res.sendFile('./res/res_bueno/signIn.html', {
         root: __dirname,
@@ -106,7 +107,7 @@ app.get('/home/getCards', async (req, res) => {
 
     const { id_session } = req.cookies;
     const cards = await getUserCards(id_session);
-    console.log(cards);
+
     res.json(cards);
 
 })
@@ -115,8 +116,6 @@ app.post('/home/createCard', async (req, res) => { // TOOD: Cuando se crea una c
 
     const { id_session } = req.cookies;
     const { title, content, color } = req.body
-    console.log("id_session", id_session);
-    console.log(req.cookies);
     await postUserCards(title, content, color, id_session);
     // res.status(200).send("Se creó la carta correctamente");
     res.redirect(301, '/home');
@@ -147,8 +146,6 @@ app.put('/home/editCard', async (req, res) => {
 
     const { id_session } = req.cookies;
 
-    console.log(id_session);
-    console.log(req.body);
     const { title, content, color, id_card } = req.body;
     await editCard(title, content, color, id_session, id_card);
     res.status(200).send("Se editó la carta correctamente");
