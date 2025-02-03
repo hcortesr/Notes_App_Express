@@ -137,12 +137,12 @@ function createNoteAction() {
 
 }
 
-
 function renderNotes() {
 
     let newMainContent = "";
     arrayNotes.forEach((element, index) => {
         let textAux = `openBigScreen('${element.title}', '${element.content}', '${getDateFormated(element.date)}', '${element.color}')`;
+        console.log(index);
 
         const noteText = `
         <div class="card" style="background-color: ${element.color}">
@@ -205,19 +205,24 @@ function editCardFun() {
     })
 }
 
-function deleteOneCardFun() {
-    fetch('/home/deleteCard', {
+async function deleteOneCardFun(index) {
+    console.log("pre")
+
+    await fetch('/home/deleteCard', {
         method: 'delete',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            id_card: arrayNotes[currentIndex]['id_card'],
+            id_card: arrayNotes[index]['id_card'],
         })
     }).then(res => {
+        console.log("se motró");
         showCards();
 
-    })
+    }).then(data => console.log("----"))
+
+    console.log("asdf");
 }
 
 function logOutFun() {
@@ -232,3 +237,20 @@ function logOutFun() {
 }
 
 showCards();
+
+function deleteOneCardFun(idcard) {
+    console.log("pre")
+    fetch('/home/deleteCard', {
+        method: 'delete',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id_card: arrayNotes[idcard]['id_card'],
+        })
+    }).then(res => {
+        console.log("se motró");
+        showCards();
+
+    }).then(data => console.log("----"))
+}

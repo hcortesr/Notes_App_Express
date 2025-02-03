@@ -16,9 +16,9 @@
 
     <form action="/logInPage/" method="post" id="login_container">
         <label class="login_margin" for="username">Username:</label>
-        <input class="login_margin" type="text" name="id_user" id="username">
+        <input class="login_margin" type="text" name="id_user" id="username" minlength="5">
         <label class="login_margin" for="password">Password:</label>
-        <input class="login_margin" type="text" name="password" id="password">
+        <input class="login_margin" type="text" name="password" id="password" minlength="5">
 
         <div id="btn_container">
             <input type="submit" name="action_type" value="Sign Up">
