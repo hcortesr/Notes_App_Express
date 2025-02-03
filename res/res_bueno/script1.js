@@ -187,7 +187,6 @@ function deleteAllFun() {
 }
 
 function editCardFun() {
-    console.log("editCard")
     fetch('/home/editCard', {
         method: 'put',
         headers: {
@@ -205,26 +204,6 @@ function editCardFun() {
     })
 }
 
-async function deleteOneCardFun(index) {
-    console.log("pre")
-
-    await fetch('/home/deleteCard', {
-        method: 'delete',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            id_card: arrayNotes[index]['id_card'],
-        })
-    }).then(res => {
-        console.log("se motró");
-        showCards();
-
-    }).then(data => console.log("----"))
-
-    console.log("asdf");
-}
-
 function logOutFun() {
 
     fetch('/logInPage/signOut', {
@@ -239,7 +218,7 @@ function logOutFun() {
 showCards();
 
 function deleteOneCardFun(idcard) {
-    console.log("pre")
+    console.log('pre2');
     fetch('/home/deleteCard', {
         method: 'delete',
         headers: {
@@ -249,8 +228,7 @@ function deleteOneCardFun(idcard) {
             id_card: arrayNotes[idcard]['id_card'],
         })
     }).then(res => {
-        console.log("se motró");
         showCards();
 
-    }).then(data => console.log("----"))
+    })
 }
