@@ -13,6 +13,10 @@ app.use(express.json());
 app.use(cookieParse());
 app.use(morgan('dev'));
 
+app.get('/', (req, res) => {
+    res.redirect(301, '/logInPage');
+})
+
 
 app.get('/logInPage', (req, res) => {
     res.sendFile('./res/res_bueno/signIn.html', {
