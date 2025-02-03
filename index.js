@@ -70,7 +70,8 @@ app.post('/logInPage/signIn', async (req, res) => { // Function create user
             res.status(404).send("Hay un error con el usuario o la contraseña");
         }
     } else {
-        res.status(404).send("Ya se ha iniciado sesión");
+        // res.status(404).send("Ya se ha iniciado sesión");
+        res.json({ redirectTo: '/home' });
     }
 
 })
@@ -150,6 +151,10 @@ app.put('/home/editCard', async (req, res) => {
     await editCard(title, content, color, id_session, id_card);
     res.status(200).send("Se editó la carta correctamente");
 
+})
+
+app.use((req, res) => {
+    res.redirect(301, '/logInPage');
 })
 
 app.listen(3000);

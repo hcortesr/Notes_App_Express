@@ -51,7 +51,7 @@ form.addEventListener('submit', async (event) => {
             .then(data => {
 
 
-                if (data == "Hay un error con el usuario o la contraseña" || data == "Ya se ha iniciado sesión") {
+                if (data == "Hay un error con el usuario o la contraseña") {
                     newAlert.textContent = data;
                     insertText(newAlert);
 
