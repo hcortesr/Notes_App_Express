@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+
+    <link rel="stylesheet" href="styleHome.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+
+    <header>
+        <h1>Notes App</h1>
+    </header>
+    <nav id="options">
+        <ul>
+            <li id="create_new"><i class='bx bxs-file-plus bx-md'></i></li>
+            <li id="delete_all"><i class='bx bxs-trash bx-md'></i></li>
+            <li id="log_out"><i class='bx bx-log-out bx-md'></i></li>
+        </ul>
+    </nav>
+
+    <hr>
+
+    <main id="cards-container">
+
+
+    </main>
+    <div id="new-card-screen-container">
+        <form id="new-card-screen" method="post" action="/home/createCard">
+            <label for="newcard-title"><span class="newcard-label">Title: </span><input type="text" name="title"
+                    id="newcard-title"></label>
+            <label for="newcard-content"><span class="newcard-label">Content: </span><textarea name="content"
+                    id="newcard-content"></textarea></label>
+
+
+            <label class="newcard-label-color">Seleccionar color:</label>
+            <div class="color-selector">
+                <label for="color-red"><input type="radio" name="color" id="color-red" checked value="#ff6666"><span
+                        class="color-option c-red"></span></label>
+                <label for="color-green"><input type="radio" name="color" id="color-green" value="#66ff66"><span
+                        class="color-option c-green"></span></label>
+                <label for="color-blue"><input type="radio" name="color" id="color-blue" value="#6666e8"><span
+                        class="color-option c-blue"></span></label>
+                <label for="color-yellow"><input type="radio" name="color" id="color-yellow" value="#f6f666"><span
+                        class="color-option c-yellow"></span></label>
+            </div>
+
+            <button id="newcard-btn">Create Note</button>
+            <i class='bx bxs-x-circle' id="newcard-close"></i>
+        </form>
+    </div>
+
+    <div id="delete-cards-container">
+        <div id="delete-cards-screen">
+            <p>Are you sure that you want to delete all your cards?</p>
+            <div id="btn-container">
+                <button id="btn-cancel">Cancel</button>
+                <button id="btn-yes">Yes</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="big-screen">
+        <div id="big-card">
+            <h2 id="big-card-title"> Tile card</h2>
+            <p class="card-text" id="big-card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
+                fugiat voluptatum
+                doloremque beatae sequi quia, eligendi saepe dolor ratione reprehenderit vero necessitatibus, neque esse
+                possimus?</p>
+            <p class="card-date" id="big-card-date">kñsdfas jlñ</p>
+            <div class="card-option">
+                <i class='bx bxs-x-circle card-option-white bx-md' id="big-card-close"></i>
+            </div>
+        </div>
+
+
+
+        <div id="edit-card-screen-container">
+            <form id="edit-card-screen">
+                <label for="editcard-title"><span class="newcard-label">New Title: </span><input type="text"
+                        name="title" id="editcard-title"></label>
+                <label for="editcard-content"><span class="newcard-label">New content: </span><textarea name="content"
+                        id="editcard-content"></textarea></label>
+
+                <label class="newcard-label-color">Seleccionar color:</label>
+                <div class="color-selector">
+                    <label for="edit-color-red"><input type="radio" name="color" id="edit-color-red" checked
+                            value="#ff6666"><span class="color-option c-red"></span></label>
+                    <label for="edit-color-green"><input type="radio" name="color" id="edit-color-green"
+                            value="#66ff66"><span class="color-option c-green"></span></label>
+                    <label for="edit-color-blue"><input type="radio" name="color" id="edit-color-blue"
+                            value="#6666e8"><span class="color-option c-blue"></span></label>
+                    <label for="edit-color-yellow"><input type="radio" name="color" id="edit-color-yellow"
+                            value="#f6f666"><span class="color-option c-yellow"></span></label>
+                </div>
+
+                <button id="editcard-btn">Edit Note</button>
+                <i class='bx bxs-x-circle' id="editcard-close"></i>
+            </form>
+        </div>
+
+
+    </div>
+
+    <script src="script3.js"></script>
+    <script src="script2.js"></script>
+    <script src="script1.js"></script>
+
+</body>
+
+</html>

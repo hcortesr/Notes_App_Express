@@ -13,17 +13,17 @@ app.use(express.json());
 app.use(cookieParse());
 app.use(morgan('dev'));
 
-app.get('/', (req, res) => {
-    res.redirect(301, '/logInPage');
-})
 
 
 app.get('/logInPage', (req, res) => {
-    res.sendFile('./res/res_bueno/signIn.html', {
+    res.sendFile('./res/res_bueno/index.html', {
         root: __dirname,
     })
 })
 
+app.get('/', (req, res) => {
+    res.send("asdf");
+})
 
 app.post('/logInPage/signUp', async (req, res) => { // Function create user
     const { id_user, password } = req.body;
@@ -101,7 +101,7 @@ app.delete('/logInPage/signOut', async (req, res) => { // Function to close the 
 app.get('/home', async (req, res) => {
 
     const { id_session } = req.cookies;
-    res.sendFile('./res/res_bueno/index.html', {
+    res.sendFile('./res/res_bueno/home.html', {
         root: __dirname,
     })
 
