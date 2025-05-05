@@ -2,10 +2,10 @@ const { query } = require('express');
 const mysql2 = require('mysql2/promise');
 
 const pool = mysql2.createPool({
-    host: 'srv961.hstgr.io',
-    user: 'u123882835_admin_user',
-    password: '6^Aww0ow[yG',
-    database: 'u123882835_notes_appv2'
+    host: 'srv1957.hstgr.io',
+    user: 'u356951906_noteTakingAppU',
+    password: 'zT#23cBLk',
+    database: 'u356951906_noteTakingApp'
 })
 
 async function getUser(id_user) {
