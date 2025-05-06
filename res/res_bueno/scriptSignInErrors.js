@@ -1,5 +1,5 @@
 const newAlert = document.createElement('p');
-const form = document.getElementById('login_container');
+const form = document.getElementById('login_form');
 newAlert.id = 'warning-text';
 
 function insertText(ele) {
