@@ -12,20 +12,22 @@
 </head>
 
 <body>
-    <h1>Notes App: Sign In</h1>
+    <h1 id="main_title">Notes App</h1>
 
-    <form action="/logInPage/" method="post" id="login_container">
-        <label class="login_margin" for="username">Username:</label>
-        <input class="login_margin" type="text" name="id_user" id="username" minlength="5">
-        <label class="login_margin" for="password">Password:</label>
-        <input class="login_margin" type="text" name="password" id="password" minlength="5">
+    <div id="login_container">
+        <form action="/logInPage/" method="post" id="login_form">
+            <label class="login_margin" for="username">Username:</label>
+            <input class="login_margin" type="text" name="id_user" id="username" minlength="5">
+            <label class="login_margin login_spacer" for="password">Password:</label>
+            <input class="login_margin" type="text" name="password" id="password" minlength="5">
 
-        <div id="btn_container">
-            <input type="submit" name="action_type" value="Sign Up">
-            <input type="submit" name="action_type" value="Sign In">
+            <div id="btn_container" class="login_spacer">
+                <input type="submit" name="action_type" value="Sign Up">
+                <input type="submit" name="action_type" value="Sign In">
 
-        </div>
-    </form>
+            </div>
+        </form>
+    </div>
 
     <script src="./scriptSignIn.js"></script>
 

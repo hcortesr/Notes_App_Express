@@ -66,3 +66,13 @@ form.addEventListener('submit', async (event) => {
     }
 
 })
+
+// Not play the animation in the resizing of the window
+
+window.addEventListener('resize', (e) => {
+    console.log("Resizing");
+    const main_title = document.querySelector('#main_title');
+    main_title.style.animationPlayState = 'paused';
+    main_title.style.animationDirection = 'reverse';
+
+});
