@@ -148,7 +148,7 @@ h1 {
 @media (max-width: 800px) {
     h1 {
         animation-name: shrink3;
-        background-color: red;
+
     }
 
     #login_container {
